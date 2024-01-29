@@ -1,0 +1,181 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+.navbar-nav a {
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.discount-message {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 01);
+    color: #fff;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    max-width: 1000px;
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+}
+
+.logo-text {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+}
+
+.name {
+    flex: 1;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.pb-3 {
+    margin-top: 60px !important;
+}
+
+footer {
+    position: relative !important;
+}
+.container{
+    padding-left:0px;
+    padding-right:0px;
+}
+/* home page animation */
+#slideshow {
+    position: relative;
+    margin-bottom: auto;
+}
+
+#slideshow img {
+    width: 100%;
+    object-fit: cover;
+}
+
+#slideshow:before {
+    content: "";
+    display: block;
+    padding-top: 66.6%;
+}
+
+
+.mySlides {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s linear;
+    display: block;
+    height: auto;
+    top: 0;
+}
+
+.mySlides.active{
+    opacity: 1;
+    height: auto;
+}
+
+/* Use keyframe animations to fade between slides */
+@keyframes crossfade {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+/*product gallery container*/
+.productcontainer {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+/* sets height of image in product gallery card*/
+.card-image {
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/*for star rating system*/
+.stars-outer {
+    position: relative;
+    display: inline-block;
+    
+}
+
+/*cart count*/
+
+.badge {
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+
+#lblCartCount {
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter-Regular.woff2') format('woff2'), url('fonts/Inter-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}

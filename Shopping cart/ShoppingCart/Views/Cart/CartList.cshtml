@@ -1,0 +1,126 @@
+﻿
+@{
+    List<Cart> carts = ViewBag.Carts;
+    decimal price;
+    decimal? tprice = 0;
+}
+
+<section class="h-100 gradient-custom">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div><h8><a class="continueshopping" href="/ProductList"><< Continue shopping</a></h8></div>
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <div><h5 class="mb-0">Cart items</h5></div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Single item -->
+                        @for (int i = 0; i < carts.Count; i++)
+                        {
+                            var totalprice = carts[i].price * carts[i].quantity;
+                            carts[i].totalprice = totalprice;
+                            tprice += totalprice;
+                            <input type="hidden" id=@i name="hidden-input" value=@carts[i].product_id>
+                            <input type="hidden" id="hidden-customer-id" name="hidden-input" value=@carts[i].customer_id>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                        <img src=@carts[i].imagepath class="w-100" alt=@carts[i].product_name />
+                                        <a href="#!">
+                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Image -->
+                                </div>
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <p><strong>@carts[i].product_name</strong></p>
+                                    <p>@carts[i].description</p>
+                                    <!-- Data -->
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Quantity -->
+                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                        <button class="btn_minus" onclick="decrementPrice(@carts[i].price,@i)">
+                                            <p class="btn_icon">-</p>
+                                        </button>
+                                        <div class="form-outline">
+                                            <input id="form1" min="1" name="quantity[@i]" value="@carts[i].quantity" type="number" class="form-control" onchange="updatePrice(@Json.Serialize(carts)),@carts[i].price,@i)" readonlyi />
+                                        </div>
+                                        <button class="btn_plus" onclick="incrementPrice(@carts[i].price,@i)">
+                                            <p class="btn_icon">+</p>
+                                        </button>
+                                        <img class="trash_icon" onclick="removeRow(@carts[i].price,@i)" src="https://www.freeiconspng.com/uploads/trash-can-icon-24.png" width="30" height="30" alt="Icon Drawing Trash Can" />
+                                    </div>
+                                    <p class="subtotal">Subtotal: $<span id="totalPrice_@i">@carts[i].totalprice</span></p>
+                                    <!-- Price -->
+                                </div>
+                            </div>
+
+                            <hr class="my-4" />
+                        }
+                    </div>
+                </div>
+
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body">
+                        <p><strong>We accept</strong></p>
+                        <img class="me-2" width="45px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                             alt="Visa" />
+                        <img class="me-2" width="45px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                             alt="American Express" />
+                        <img class="me-2" width="45px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                             alt="Mastercard" />
+                        <img class="me-2" width="45px"
+                             src="https://logowik.com/content/uploads/images/paypal-new-20232814.logowik.com.webp"
+                             alt="PayPal acceptance mark" />
+                        @*https://pixabay.com/get/g05ee717d569b0769d6d2e1df123ca42e0dc7b4730d1fa3cadd025b6729279b51b3507abf9d7c55c6746296c151cd0845fc913fe7eeffa1121cf97c60494af4202b00aa416ebccf5d8279294f987ecc17_1280.png*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Products
+                                $<span id="totalPrice">@tprice</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                GST
+                                <span>0%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div class="totalAmount">
+                                    <strong>Total amount</strong>
+                                </div>
+                                <span class="totalAmount"><strong>$<span class="totalAmount" id="totalSum">@tprice</span></strong></span>
+                            </li>
+                        </ul>
+
+                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="comfirmCheckOut()">
+                            Go to checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+
+@section Scripts{
+    <script src="~/js/cart.js" asp-append-version="true"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}

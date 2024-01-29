@@ -1,0 +1,162 @@
+﻿@{
+	List<PurchaseHistory> purchaseHistories = ViewBag.PurchaseHistory;
+}
+<head>
+	<style>
+		.star-rating-container {
+			user-select: none;
+		}
+
+		.star {
+			font-size: 20px;
+			color: gold;
+			background-color: unset;
+			border: none;
+			margin-right:-10px
+		}
+
+			.star:hover {
+				cursor: pointer;
+			}
+
+	</style>
+</head>
+@section Scripts{
+	<script src="/js/purchasehistory.js"></script>
+
+}
+
+
+<section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+	<div class="row d-flex justify-content-center align-items-center h-100">
+	  <div class="col-10">
+
+		<div class="d-flex justify-content-between align-items-center mb-4">
+		  <h3 class="fw-normal mb-0 text-black">My Purchases</h3>
+		  <div>
+
+		  </div>
+		</div>
+
+
+				@if (purchaseHistories.Count == 0)
+				{
+					<p>No history found.</p>
+				}
+				else
+				{
+
+					var uniquepurchases = purchaseHistories.GroupBy(p => p.ProductId).Select(g => g.OrderByDescending(p => p.PurchaseDate).FirstOrDefault()).ToList();
+					//Select(pur => DateTime.Parse(pur.PurchaseDate)).Distinct().OrderByDescending(date => date);
+					var quantity = uniquepurchases.Count;
+
+					@for(int num=0;num<quantity;num++)
+					//@foreach (var purchase in purchaseHistories)
+					{
+						var purchase = uniquepurchases[num];
+						var customerid = purchase.CustomerId;
+						var productid = purchase.ProductId;
+						<div class="card rounded-3 mb-4">
+										  <div class="card-body p-4">
+											<div class="row d-flex justify-content-between align-items-center">
+											  <div class="col-md-2 col-lg-2 col-xl-2">
+												<img src="@purchase.ImageUrl" alt="@purchase.Name" class="img-fluid rounded-3" >
+											  </div>
+								
+
+											  <div class="col-md-4 col-lg-4 col-xl-3">
+														<p class="lead fw-normal mb-2">@purchase.Name</p>
+														<p><span class="text-muted">@purchase.Description</span></p>
+														<p><span class="text-muted">Purchased On: @purchase.PurchaseDate</span></p>
+														<p><span class="text-muted">Quantity: @purchase.Quantity</span></p>
+														<button type="button" class="btn btn-primary">Download</button>
+											  </div>
+
+
+									
+
+										<div class="col-md-4 col-lg-4 col-xl-3 d-flex flex-column">
+
+										@if (purchase.Review > 0)
+										{
+											<div class="star-rating-container star-rating-container-@num">
+												<label for="star">Review:</label>
+												<div class="stars">
+													<input type="hidden" id="hidden-customerid" name="hidden-input" value=@customerid>
+													<input type="hidden" id="hidden-productid" name="hidden-input" value=@productid>
+													@for(int i=1;i<=5;i++)
+													{
+														if (i <= purchase.Review)
+														{
+															<button class="star" type="button">&#9733;</button>
+														}
+														else
+														{
+															<button class="star" type="button">&#9734;</button>
+														}
+													}
+
+												</div>
+											</div>
+										}
+										else
+										{
+											<div class="star-rating-container star-rating-container-@num">
+												<label for="star">Review:</label>
+												<div class="stars">
+													<input type="hidden" id="hidden-customerid" name="hidden-input" value=@customerid>
+													<input type="hidden" id="hidden-productid" name="hidden-input" value=@productid>
+													<button class="star" type="button">&#9734;</button>
+													<button class="star" type="button">&#9734;</button>
+													<button class="star" type="button">&#9734;</button>
+													<button class="star" type="button">&#9734;</button>
+													<button class="star" type="button">&#9734;</button>
+												</div>
+											</div>
+										}
+													
+								
+
+												<label for="Activation Code">Activation Code: </label>
+												<select class="form-select" aria-label="Activation Code">
+
+												@{
+													var split = purchase.ActivationCode.Split(",");
+													var val = 0;
+												}
+												
+												@for (int i = 0; i < split.Length; i++)
+												{
+													if (i == 0)
+													{
+														<option selected>@split[i]</option>
+													}
+													else
+													{
+														val += 1;
+														<option value="@val">@split[i]</option>
+													}
+
+												}
+											</select>
+										
+
+									</div>
+											  
+											
+											  <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+												  
+												
+											  </div>
+											</div>
+										  </div>
+										</div>
+					}
+				}
+	  </div>
+	</div>
+  </div>
+</section>
+
+

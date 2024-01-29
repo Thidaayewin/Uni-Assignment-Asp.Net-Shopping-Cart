@@ -1,0 +1,51 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+<section id="slideshow" style="max-width:100%; position: relative; display: block;">
+	<div class="mySlides active">
+		<img src="https://image.lexica.art/full_jpg/efdfa9db-3a04-4143-b489-d2b5d18e23c6">
+  <div class="discount-message">
+	<h1>Welcome to CodeMaki</h1>
+  </div>
+</div>
+<div class="mySlides">
+		<img src="https://image.lexica.art/full_jpg/b161c068-ce5c-4f59-b222-0cd54b22fc2c">
+  <div class="discount-message">
+	<h1>At CodeMaki,<br/>we satisfy your tech cravings</h1>
+  </div>
+</div>
+<div class="mySlides">
+		<img src="https://image.lexica.art/full_jpg/efdfa9db-3a04-4143-b489-d2b5d18e23c6">
+  <div class="discount-message">
+	<h1>We roll out software like sushi rolls</h1>
+  </div>
+</div>
+</section>
+
+
+
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+	var slides = document.getElementsByClassName("mySlides");
+	for (var i = 0; i < slides.length; i++) {
+	  slides[i].classList.remove("active");
+	}
+	slideIndex++;
+	if (slideIndex > slides.length) {
+	  slideIndex = 1;
+	}
+	slides[slideIndex - 1].classList.add("active");
+	setTimeout(showSlides, 5000); // Change image every 5 seconds
+  }
+</script>
+
+
+
+<script src="~/js/home.js"></script>
+
+
+

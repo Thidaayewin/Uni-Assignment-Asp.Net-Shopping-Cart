@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - ShoppingCart</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/ShoppingCart.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+</head>
+<body>
+	<header>
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+		<div class="container-fluid">
+			<div class="container-fluid" style="display: flex; justify-content: space-between; align-items: center;">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="height: 100%; padding: 0px">
+					<img src="https://i.ibb.co/cQ40kWb/logosm.png" style="display: inline-block; max-height:50px" />
+				</a>
+				<div class = "name">
+						@inject IHttpContextAccessor HttpContextAccessor
+						@if (HttpContextAccessor.HttpContext.Session.GetString("username") != null)
+						{
+								<span>Hi @HttpContextAccessor.HttpContext.Session.GetString("first_name") @HttpContextAccessor.HttpContext.Session.GetString("last_name")</span>
+						}
+				</div>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+
+			<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+				<ul class="navbar-nav flex-grow-1">
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="ProductList">Products</a>
+					</li>
+					
+						@inject IHttpContextAccessor HttpContextAccessor
+						@if (HttpContextAccessor.HttpContext.Session.GetString("username") == null)
+						{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+									</li>
+						}
+						else
+						{
+										<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+								</li>
+						}
+						@inject IHttpContextAccessor HttpContextAccessor
+						@if (HttpContextAccessor.HttpContext.Session.GetString("username") != null)
+						{
+										<li class="nav-item">
+											<a class="nav-link text-dark" asp-area="" asp-controller="Purchase" asp-action="PurchaseHistory">History</a>
+											</li>
+						}
+					<li class="nav-item">
+						<div style="position: relative;">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="CartList">
+								<i class="fa" style="font-size:24px">&#xf07a;</i>
+								<span class='badge badge-warning' id='lblCartCount'></span>
+							</a>
+						</div>
+					</li>
+						
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container" style="max-width:100%">
+		<main role="main" class="pb-3">
+				@RenderBody()
+		</main>
+	</div>
+</header>
+
+<footer class="border-top footer text-muted" style="position: relative; display: block; width: 100%">
+	<div class="container" style="line-height: 1.5; display: block; max-width: 100%; word-break: keep-all; white-space: normal; text-indent: 0; padding-right: 20px; padding-left:20px">
+		&copy; 2023 - ShoppingCart<br />
+		Team Members: <br/>
+		Muhamad&nbsp;Ashsiddique&nbsp;Bin&nbsp;Mohamed&nbsp;Omrul&nbsp;Hauk, 
+		Choong&nbsp;Hui&nbsp;Ying&nbsp;Abigail, 
+		Seah&nbsp;Isabelle, 
+		Ng&nbsp;Ka&nbsp;Wing, 
+		Thant&nbsp;Thiri&nbsp;Shwe,
+		Thida&nbsp;Aye&nbsp;Win, 
+		Xu&nbsp;Cong<br />
+		<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+	</div>
+</footer>
+
+
+
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/navbarcart.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

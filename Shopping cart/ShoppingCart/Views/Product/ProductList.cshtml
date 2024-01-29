@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<link rel="stylesheet" href="~/css/product.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"> @*star icon from font awesome, not sure how to import this into the project*@
+
+@model Product
+
+
+@{
+    List<Product> products = ViewBag.Products;
+    var productsjson = ViewBag.Productsjson;
+}
+
+<div id="successMessage" class="alert alert-success" style="display: none;">
+  <strong>Success!</strong> Successufully added to cart.
+</div>
+<div id="errorMessage" class="alert alert-danger" style="display: none;">
+  <strong>Unsuccessful!</strong> Adding cart is unsuccessful.
+</div>
+<div class="productcontainer">
+    <h1>Product Items:   </h1>
+
+    @*Search Bar*@
+    <div class="search-wrapper">
+        <label for="search"></label>
+        <input type="search" id="search" placeholder="Enter your search here..." data-search>
+        <br>
+    </div>
+
+    <div class="no-results" data-no-results-message>
+        <p>No Results</p>
+    </div>
+
+    @*product gallery*@
+    <div class="row" data-user-products-container></div>
+    @*template for the gallery card*@
+    <template data-product-template>
+        <div class="col-md-4 mb-4"> @*bootstrap*@
+            <div class="card">
+                <img src="" class="card-img-top card-image" alt="">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <div class = "stars-outer">
+                        <div class = "stars-inner"></div>
+                    </div>
+                    <p class="card-text" ><small rating-number></small></p>
+                    <p class="card-text" data-description></p>
+                    <p class="card-text"><strong data-price></strong></p>
+                    <button type="button" class="btn btn-primary" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    @*generates gallery*@
+    <div id="my-div" data-value='@Html.Raw(productsjson)'></div>
+
+</div>
+
+
+@section Scripts {
+    <script src="~/js/productlist.js" asp-append-version="true"></script>
+}

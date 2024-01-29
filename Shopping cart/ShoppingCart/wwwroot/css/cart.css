@@ -1,0 +1,68 @@
+﻿body {
+     fallback for old browsers 
+    background: #6a11cb;
+     Chrome 10-25, Safari 5.1-6 
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+     W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+
+.btn_minus, .btn_plus {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ebe9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 900;
+    color: #202020;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btn_icon{
+    margin-top:9px;
+}
+
+.trash_icon {
+    margin-left: 4px;
+    margin-top: 3px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.subtotal {
+    color: #202020;
+    font-size: large;
+    margin-left: 4px;
+}
+.totalAmount {
+    color: red;
+}
+
+.removeall {
+    font-size: 14px;
+    font-family: ‘Open Sans’;
+    font-weight: 600;
+    color: #E44C4C;
+    cursor: pointer;
+    margin-left: 30px;
+    margin-top: 20px;
+    border-bottom: 1px solid #E44C4C;
+}
+
+.continueshopping {
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 600;
+    color: #8fc866;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+}
